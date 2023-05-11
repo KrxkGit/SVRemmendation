@@ -49,6 +49,7 @@ class Video:
         self.id = id
         self.length = length
         self.name = name
+        self.feedback_weight = None
 
     # 判断是否为今日热点(受喜爱程度)并修改
     def isHot(self):

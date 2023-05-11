@@ -22,6 +22,7 @@ def take_share(video: Video.Video):
     return video.share / video.watch
 
 
+# 计算总的反馈权重
 def take_result_percent(video: Video.Video):
     weight = (1, 2, 3)  # 权重得分：假设点赞得1分，评论得2分，分享得3分
     return (take_like(video) * weight[0] + take_comment(video) * weight[1] + take_share(video) * weight[

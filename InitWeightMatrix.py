@@ -4,9 +4,6 @@
 """
 import numpy as np
 
-videoList = []  # 一级视频
-userList = []
-
 
 # 根据各属性获得初始权重
 class InitWeight:
