@@ -21,21 +21,21 @@ class GlobalVariable:
         self.GlobalVideoList = []
         self.GlobalUserList = []
 
-    def add_video(self, video: Video.Video):
+    def add_video_to_list(self, video: Video.Video):
         if help_find(video.id, self.GlobalVideoList):
             self.GlobalVideoList.append(video)
 
-    def add_user(self, user: User.User):
+    def add_user_to_list(self, user: User.User):
         if help_find(user.id, self.GlobalUserList):
             self.GlobalUserList.append(user)
 
-    def del_video(self, video: Video.Video):
+    def del_video_from_list(self, video: Video.Video):
         if help_find(video.id, self.GlobalVideoList, True):
             return True
         else:
             return False
 
-    def del_user(self, user: User.User):
+    def del_user_from_list(self, user: User.User):
         if help_find(user.id, self.GlobalUserList, True):
             return True
         else:
