@@ -10,5 +10,8 @@ import ExWeight
 import FeedbackWeight
 
 
-def CalWeight(init_weight_matrix: InitWeightMatrix.InitWeight, user: User.User, video: Video.Video):
-    return init_weight_matrix.GetInitWeight(video)
+class Weight:
+    def __init__(self):
+        self.init_weight_obj = InitWeightMatrix.InitWeight
+        self.ex_weight_obj = ExWeight.ExtraWeight
+        self.fb_weight_obj = FeedbackWeight.FeedbackWeight
