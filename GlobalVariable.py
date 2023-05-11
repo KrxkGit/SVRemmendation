@@ -7,9 +7,11 @@ import User
 import Video
 
 
-def help_find(id: int, global_list):
+def help_find(id: int, global_list, bToDelete: bool):  # bToDelete 指明在遍历时是否删除该元素，用于提高删除效率
     for item in global_list:
         if id == item.id:
+            if bToDelete:
+                global_list.remove(item)
             return True
     return False
 
@@ -26,3 +28,15 @@ class GlobalVariable:
     def add_user(self, user: User.User):
         if help_find(user.id, self.GlobalUserList):
             self.GlobalUserList.append(user)
+
+    def del_video(self, video: Video.Video):
+        if help_find(video.id, self.GlobalVideoList, True):
+            return True
+        else:
+            return False
+
+    def del_user(self, user: User.User):
+        if help_find(user.id, self.GlobalUserList, True):
+            return True
+        else:
+            return False
