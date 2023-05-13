@@ -13,9 +13,6 @@
 7、点赞数
 8、评论数
 9、分享数
-
-方法：
-
 """
 
 
@@ -49,11 +46,12 @@ class Video:
         self.length = length
         self.name = name
         self.feedback_weight = None
+        self.hot = False
 
     # 判断是否为今日热点(受喜爱程度)并修改
-    def isHot(self):
-        if self.watch > 1000:  # 或者还要考虑点赞、评论、分享数？
-            self.hot = 1
+    # def is_hot(self):
+    #     if self.watch > 1000:  # 或者还要考虑点赞、评论、分享数？
+    #         self.hot = 1
 
     # 观看一次视频，更改已观看用户信息
     # 输入：观看用户、观看时长
@@ -71,7 +69,7 @@ class Video:
             self.user_list.append([user.id, 1, new_len / self.length])
 
         # 其余操作
-        self.isHot()  # 视频是否变为热点
+        # self.is_hot()  # 视频是否变为热点
         # 是否点赞
         if isLike:
             self.like = self.like + 1

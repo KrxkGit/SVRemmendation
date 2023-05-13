@@ -7,10 +7,6 @@
 3、工作阶段
 4、性别
 5、职业
-
-方法：
-1、
-
 """
 import Weight
 from GlobalVariable import global_obj

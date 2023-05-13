@@ -47,6 +47,28 @@ class GlobalVariable:
         else:
             return False
 
+    @staticmethod
+    def set_video_hot(video, bSet=True):  # 设置视频视为为热，默认调用设为热
+        if bSet:
+            video.hot = True
+        else:
+            video.hot = False
+
+    def get_video_list_by_category(self, category):
+        result = []
+        for video in self.GlobalVideoList:
+            if video.category == category:
+                result.append(video)
+        return result
+
+    def get_user_list_by_attr(self, work_phase, gender, job):
+        result = []
+        for user in self.GlobalUserList:
+            if user.work_phase == work_phase and user.gender == gender and user.job == job:
+                result.append(user)
+        return result
+
 
 global_obj = GlobalVariable()  # 全局变量
 refresh_frequency = 100  # 用户刷n条视频后重新计算权重
+hot_add_weight = 10

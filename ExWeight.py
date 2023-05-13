@@ -19,4 +19,3 @@ class ExtraWeight:
 
     def GetExWeight(self, video):
         return self.exWeightList[video.category]
-

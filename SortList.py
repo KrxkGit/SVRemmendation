@@ -1,6 +1,6 @@
 # coding=utf-8
 
-# 利用融合排序算法进行排序，降序排列
+# 利用融合排序算法进行排序，降序排列，其中传入vl元素结构为：[视频uid, 视频weight]
 def VideoListSort(vl: list):
     key_col = 1  # 权重位置
     if len(vl) > 1:
@@ -32,4 +32,3 @@ def VideoListSort(vl: list):
             vl[k] = right_arr[j]
             j += 1
             k += 1
-
