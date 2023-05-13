@@ -13,6 +13,8 @@
 
 """
 import Video
+import Weight
+import GlobalVariable
 
 
 class User:
@@ -29,16 +31,19 @@ class User:
     id: int = None
     # 观看视频总数
     num_of_video: int = 0
+    # 权重计算对象
+    weight_obj: Weight.Weight
 
     # 已观看视频信息[[电视：[id，次数times,平均停留时长占比ave_len_p],[id,次数，平均停留时长占比ave_len_p]，……],[电影],……]
     video_list = [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]]
 
     # 创建新用户
-    def __init__(self, work_phase: int, gender: int, job: int, id: int):
+    def __init__(self, work_phase: int, gender: int, job: int, id: int, global_obj: GlobalVariable.GlobalVariable):
         self.work_phase = work_phase
         self.gender = gender
         self.job = job
         self.id = id
+        self.weight_obj = Weight.Weight(self, global_obj.InitWeight)
 
     # 观看一个视频，更改已观看视频信息
     # 输入：观看视频、停留时长

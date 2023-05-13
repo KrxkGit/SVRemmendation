@@ -11,7 +11,7 @@ import Video
 class ExtraWeight:
     def __init__(self, user: User.User):
         self.user = user
-        self.exWeightList = np.empty(10, dtype=float)
+        self.exWeightList = np.zeros(10, dtype=float)
 
     def GenExWeight(self):
         user = self.user

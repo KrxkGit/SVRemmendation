@@ -2,7 +2,6 @@
 """
 维护全局变量：全局用户列表、全局视频列表
 """
-import numpy as np
 import User
 import Video
 import InitWeightMatrix
@@ -22,6 +21,12 @@ class GlobalVariable:
         self.GlobalVideoList = []
         self.GlobalUserList = []
         self.InitWeight = InitWeightMatrix.InitWeight()  # 初始权重具有全局性
+
+    def GetTotalUserCount(self):
+        return self.GlobalUserList.count()
+
+    def GetTotalVideoCount(self):
+        return self.GlobalVideoList.count()
 
     def add_video_to_list(self, video: Video.Video):
         if help_find(video.id, self.GlobalVideoList, False):

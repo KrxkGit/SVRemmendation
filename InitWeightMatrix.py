@@ -3,6 +3,7 @@
 根据用户属性获得初始权重
 """
 import numpy as np
+import GlobalVariable
 
 
 # 根据各属性获得初始权重，注意：初始权重具有全局性
@@ -23,8 +24,8 @@ class InitWeight:
         return weight
 
     # 更新初始权重
-    def UpdateInitWeight(self, category, work_phase, gender, job, UserTotal):
-        delta = 1 / UserTotal
+    def UpdateInitWeight(self, category, work_phase, gender, job, global_obj: GlobalVariable.GlobalVariable):
+        delta = 1 / global_obj.GetTotalUserCount()
         self.weight1[category][work_phase] += delta
         self.weight2[category][gender] += delta
         self.weight3[category][job] += delta
