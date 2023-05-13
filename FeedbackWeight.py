@@ -2,13 +2,11 @@
 """
 根据反馈参数（点赞量、分享量、评论量占观看量占比）计算全局权重
 """
-import GlobalVariable
-import Video
 
 
 # 提供计算权重外壳
 class FeedbackWeight:
-    def __init__(self, video: Video.Video):
+    def __init__(self, video):
         self.video = video
 
     def take_watch(self):
@@ -31,6 +29,8 @@ class FeedbackWeight:
             2]) / video.watch
 
     # 通过给SortKey传递 take_*函数来进行排序，默认传take_result_percent
-    def SortByFeedBack(self, global_var: GlobalVariable.GlobalVariable, SortKey):
-        video_list = global_var.GlobalVideoList
+    @staticmethod
+    def SortByFeedBack(SortKey):
+        from GlobalVariable import global_obj
+        video_list = global_obj.GlobalVideoList
         video_list.sort(key=SortKey, reverse=True)

@@ -12,9 +12,9 @@
 1、
 
 """
-import Video
+
 import Weight
-import GlobalVariable
+from GlobalVariable import global_obj
 
 
 class User:
@@ -27,38 +27,38 @@ class User:
     # 职业（维度3）
     # 0-老师，1-学生，2-程序员，3-工程师，4-网络主播，5-其他
     job: int = None
-    # id
-    id: int = None
+    # uid
+    uid: int = None
     # 观看视频总数
     num_of_video: int = 0
     # 权重计算对象
     weight_obj: Weight.Weight
 
-    # 已观看视频信息[[电视：[id，次数times,平均停留时长占比ave_len_p],[id,次数，平均停留时长占比ave_len_p]，……],[电影],……]
-    video_list = [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]]
+    # 已观看视频信息[[电视：[uid，次数times,平均停留时长占比ave_len_p],[uid,次数，平均停留时长占比ave_len_p]，……],[电影],……]
+    video_list = [[], [], [], [], [], [], [], [], [], []]
 
     # 创建新用户
-    def __init__(self, work_phase: int, gender: int, job: int, id: int, global_obj: GlobalVariable.GlobalVariable):
+    def __init__(self, work_phase: int, gender: int, job: int, id: int):
         self.work_phase = work_phase
         self.gender = gender
         self.job = job
-        self.id = id
+        self.uid = id
         self.weight_obj = Weight.Weight(self, global_obj.InitWeight)
 
     # 观看一个视频，更改已观看视频信息
     # 输入：观看视频、停留时长
-    def new_video(self, video: Video, new_len: float):
+    def new_video(self, video, new_len: float):
         # 根据id查找是否已看过，若是，次数加1,；否则新加一个
         self.num_of_video = self.num_of_video + 1
         exist: bool = False  # 判断是否已看过该视频
         for n in self.video_list[video.category]:
-            if n[0] == video.id:
+            if n[0] == video.uid:
                 n[1] = n[1] + 1
                 n[2] = (n[2] + new_len / video.length) / n[1]
                 exist = True
                 break
         if not exist:
-            self.video_list[video.category].append([video.id, 1, new_len / video.length])
+            self.video_list[video.category].append([video.uid, 1, new_len / video.length])
 
     # 获得一类视频总观看次数
     def num_in_category(self, category) -> int:
@@ -75,8 +75,8 @@ class User:
         return total / self.num_in_category()
 
     # 查找某一视频的观看次数并返回
-    def isWatched(self, video: Video) -> int:
+    def isWatched(self, video) -> int:
         for n in self.video_list[video.category]:
-            if n[0] == video.id:
+            if n[0] == video.uid:
                 return n[1]
         return 0

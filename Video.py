@@ -17,14 +17,13 @@
 方法：
 
 """
-import User
 
 
 class Video:
     # 视频类别:0-9，分别对应电视、电影，……
     category: int = None
     # 视频id
-    id: int = None
+    uid: int = None
     # 视频时长
     length: float = None
     # 视频标题
@@ -44,9 +43,9 @@ class Video:
     user_list = []
 
     # 创建新视频
-    def __init__(self, category: int, id: int, length: float, name: str):
+    def __init__(self, category: int, uid: int, length: float, name: str):
         self.category = category
-        self.id = id
+        self.uid = uid
         self.length = length
         self.name = name
         self.feedback_weight = None
@@ -58,12 +57,12 @@ class Video:
 
     # 观看一次视频，更改已观看用户信息
     # 输入：观看用户、观看时长
-    def new_user(self, user: User, new_len: float, isLike: bool, isComment: bool, isShare: bool):
+    def new_user(self, user, new_len: float, isLike: bool, isComment: bool, isShare: bool):
         # 根据id查找是否该用户已观看过，若是，次数加1，修改平均停留时长；否则新加
         self.watch = self.watch + 1
         exist: bool = False  # 判断是否已被该用户观看过
         for n in self.user_list:
-            if user.id == n[0]:
+            if user.uid == n[0]:
                 n[1] = n[1] + 1
                 n[2] = (n[2] + new_len / self.length) / n[1]
                 exist = True
