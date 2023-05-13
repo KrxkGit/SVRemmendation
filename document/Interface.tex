@@ -112,6 +112,7 @@ class InitWeight:
 作为外壳类使用，提供权重计算功能，该类统管了InitWeight、exWeight、FreebackWeight的计算。初始化该类对象需传入用户对象(user对象)以初始化其内部的exWeight。
 
 为了调用Weight.CalWeight以计算权重(权重由用户、视频同时索引)，需额外传入视频对象(video对象)
+
 \begin{tikzpicture}
     \Tree
     [.Weight [.InitWeight ] [.exWeight ] [.FreebackWeight ]]
