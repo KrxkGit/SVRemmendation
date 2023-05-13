@@ -21,6 +21,6 @@ class Weight:
         weight = (self.init_weight_obj.GetInitWeight(user.category, user.work_phase, user.gender, user.job) *
                   self.ex_weight_obj.GetExWeight(video) * fb_weight_obj.take_result_percent())
         if video.is_hot():
-            from GlobalVariable import hot_add_weight
-            weight += hot_add_weight
+            from GlobalVariable import hot_add_weight_percent
+            weight *= (1 + hot_add_weight_percent)
         return weight

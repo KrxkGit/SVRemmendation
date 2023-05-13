@@ -71,4 +71,4 @@ class GlobalVariable:
 
 global_obj = GlobalVariable()  # 全局变量
 refresh_frequency = 100  # 用户刷n条视频后重新计算权重
-hot_add_weight = 10
+hot_add_weight_percent: float = 0.1  # 对于被设置为“热”的视频，以百分比方式增加权重，如原来权重为3，则增加为3*(1+0.1)=3.3
