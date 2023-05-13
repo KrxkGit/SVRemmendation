@@ -12,7 +12,6 @@
 1、
 
 """
-
 import Weight
 from GlobalVariable import global_obj
 
@@ -39,11 +38,14 @@ class User:
 
     # 创建新用户
     def __init__(self, work_phase: int, gender: int, job: int, id: int):
+        import numpy as np
+        from GlobalVariable import refresh_frequency
         self.work_phase = work_phase
         self.gender = gender
         self.job = job
         self.uid = id
         self.weight_obj = Weight.Weight(self, global_obj.InitWeight)
+        self.to_play_list = np.zeros(refresh_frequency)  # 放置即将播放的视频
 
     # 观看一个视频，更改已观看视频信息
     # 输入：观看视频、停留时长
@@ -80,3 +82,12 @@ class User:
             if n[0] == video.uid:
                 return n[1]
         return 0
+
+    def RefreshWeight(self):  # 重新计算权重，刷新播放列表
+        self.to_play_list = None  # 释放内存
+        self.to_play_list = []
+        from SortList import VideoListSort
+        for video in global_obj.GlobalVideoList:
+            weight = self.weight_obj.CalWeight(video)
+            self.to_play_list.append([video.uid, weight])
+        VideoListSort(self.to_play_list)
