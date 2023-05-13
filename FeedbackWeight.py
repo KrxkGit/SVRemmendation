@@ -25,7 +25,7 @@ class FeedbackWeight:
     def take_result_percent(self):
         video = self.video
         weight = (1, 2, 3)  # 权重得分：假设点赞得1分，评论得2分，分享得3分
-        return (self.take_like(video) * weight[0] + self.take_comment(video) * weight[1] + self.take_share(video) * weight[
+        return (self.take_like() * weight[0] + self.take_comment() * weight[1] + self.take_share() * weight[
             2]) / video.watch
 
     # 通过给SortKey传递 take_*函数来进行排序，默认传take_result_percent

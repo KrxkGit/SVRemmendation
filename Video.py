@@ -53,7 +53,7 @@ class Video:
     # 判断是否为今日热点(受喜爱程度)并修改
     def isHot(self):
         if self.watch > 1000:  # 或者还要考虑点赞、评论、分享数？
-            hot = 1
+            self.hot = 1
 
     # 观看一次视频，更改已观看用户信息
     # 输入：观看用户、观看时长

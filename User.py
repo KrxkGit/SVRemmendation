@@ -37,13 +37,13 @@ class User:
     video_list = [[], [], [], [], [], [], [], [], [], []]
 
     # 创建新用户
-    def __init__(self, work_phase: int, gender: int, job: int, id: int):
+    def __init__(self, work_phase: int, gender: int, job: int, uid: int):
         import numpy as np
         from GlobalVariable import refresh_frequency
         self.work_phase = work_phase
         self.gender = gender
         self.job = job
-        self.uid = id
+        self.uid = uid
         self.weight_obj = Weight.Weight(self, global_obj.InitWeight)
         self.to_play_list = np.zeros(refresh_frequency)  # 放置即将播放的视频
 
@@ -74,7 +74,7 @@ class User:
         total = 0.000
         for n in self.video_list[category]:
             total = total + n[2]
-        return total / self.num_in_category()
+        return total / self.num_in_category(category)
 
     # 查找某一视频的观看次数并返回
     def isWatched(self, video) -> int:

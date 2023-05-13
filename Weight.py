@@ -18,5 +18,5 @@ class Weight:
     def CalWeight(self, video):
         user = self.user
         fb_weight_obj = FeedbackWeight.FeedbackWeight(video)
-        return self.init_weight_obj.GetInitWeight(user.category, user.work_phase, user.gender, user.job) \
-               * self.ex_weight_obj.GetExWeight(video) * fb_weight_obj.take_result_percent()
+        return (self.init_weight_obj.GetInitWeight(user.category, user.work_phase, user.gender, user.job) *
+                self.ex_weight_obj.GetExWeight(video) * fb_weight_obj.take_result_percent())

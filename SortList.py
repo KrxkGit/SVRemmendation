@@ -1,6 +1,4 @@
 # coding=utf-8
-import random
-
 
 # 利用融合排序算法进行排序，降序排列
 def VideoListSort(vl: list):
