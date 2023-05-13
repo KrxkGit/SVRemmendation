@@ -9,9 +9,9 @@ import numpy as np
 class InitWeight:
     def __init__(self):
         # 权重张量格式(统计性)：[维度1表，维度2表，维度3表]，为加快速度，表用二维数组实现
-        self.weight1 = np.empty((10, 5))
-        self.weight2 = np.empty((10, 2))
-        self.weight3 = np.empty((10, 6))
+        self.weight1 = np.zeros((10, 5))
+        self.weight2 = np.zeros((10, 2))
+        self.weight3 = np.zeros((10, 6))
         self.weightList = [self.weight1, self.weight2, self.weight3]
 
     # 获得类别权重
