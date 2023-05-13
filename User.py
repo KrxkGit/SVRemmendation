@@ -41,6 +41,7 @@ class User:
         self.job = job
         self.uid = uid
         self.weight_obj = Weight.Weight(self, global_obj.InitWeight)
+        self.temp_play_list = None  # 临时播放列表
         self.to_play_list = np.zeros(refresh_frequency)  # 放置即将播放的视频
 
     # 观看一个视频，更改已观看视频信息
@@ -79,11 +80,14 @@ class User:
                 return n[1]
         return 0
 
-    def RefreshWeight(self):  # 重新计算权重，刷新播放列表
-        self.to_play_list = None  # 释放内存
-        self.to_play_list = []
+    def HelpRefreshWeight(self):  # 重新计算权重
+        self.temp_play_list = []
         from SortList import VideoListSort
         for video in global_obj.GlobalVideoList:
             weight = self.weight_obj.CalWeight(video)
-            self.to_play_list.append([video.uid, weight])
-        VideoListSort(self.to_play_list)
+            self.temp_play_list.append([video.uid, weight])
+        VideoListSort(self.temp_play_list)
+
+    def RefreshWeight(self):  # 刷新播放列表
+        self.to_play_list = None  # 释放内存
+        self.to_play_list = self.temp_play_list
