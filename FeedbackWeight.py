@@ -6,6 +6,7 @@ import GlobalVariable
 import Video
 
 
+# 提供计算权重外壳
 class FeedbackWeight:
     def __init__(self, video: Video.Video):
         self.video = video

@@ -21,7 +21,7 @@ class GlobalVariable:
     def __init__(self):
         self.GlobalVideoList = []
         self.GlobalUserList = []
-        self.InitWeight = InitWeightMatrix.InitWeight()
+        self.InitWeight = InitWeightMatrix.InitWeight()  # 初始权重具有全局性
 
     def add_video_to_list(self, video: Video.Video):
         if help_find(video.id, self.GlobalVideoList, False):
