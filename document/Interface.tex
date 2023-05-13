@@ -33,7 +33,7 @@
 \end{center}
 
 \part{重要接口说明}
-本部分某些接口需要\textcolor{red}{手动调用}，需要重点关注。
+本部分某些接口需要\textcolor{red}{手动调用}，需要重点关注。另外由于id是python关键字，变量"id"请替换为"uid"。
 \section{GlobalVaribale}
 该类负责管理所有数据，包括用户、视频
 \begin{lstlisting}
@@ -76,7 +76,7 @@ hot_add_weight_percent: float = 0.1  # 对于被设置为“热”的视频，�
     \item get\_video\_list\_by\_category 可根据指定视频类别获取视频列表，作为用户界面辅助函数
     \item get\_user\_list\_by\_attr 可根据指定用户属性获取用户列表，作为用户界面辅助函数
     \item refresh\_frequency 表明用户在刷多少条视频后，程序重新计算初始权重表，引入该变量是为了减轻频繁更新初始权重表伴随的巨大计算量造成的负担，该变量同时也指定了某用户待播放视频列表的大小。即：其中引入了Numpy对象以加快速度。
-    \item HelpRefreshWeight用于重新计算权重，由于该函数复杂度较高，建议放在其他线程中运行，等待计算完成后再返回，此时另一线程(该线程等待正在计算权重的工作线程完成)调用RefreshWeight以更新待播放列表。可以考虑在播放了播放列表的90\%的视频左右开始重新计算。
+    \item \textcolor{blue}{HelpRefreshWeight用于重新计算权重，由于该函数复杂度较高，建议放在其他线程中运行，等待计算完成后再返回，此时另一线程(该线程等待正在计算权重的工作线程完成)调用RefreshWeight以更新待播放列表。可以考虑在播放了播放列表的90\%的视频左右开始重新计算。}
     \begin{lstlisting}
 class User:
     # 创建新用户
