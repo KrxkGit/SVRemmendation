@@ -28,21 +28,21 @@ class GlobalVariable:
         return len(self.GlobalVideoList)
 
     def add_video_to_list(self, video):
-        if help_find(video.uid, self.GlobalVideoList, False):
+        if not help_find(video.uid, self.GlobalVideoList, False):
             self.GlobalVideoList.append(video)
 
     def add_user_to_list(self, user):
-        if help_find(user.uid, self.GlobalUserList, False):
+        if not help_find(user.uid, self.GlobalUserList, False):
             self.GlobalUserList.append(user)
 
     def del_video_from_list(self, video):
-        if help_find(video.uid, self.GlobalVideoList, True):
+        if not help_find(video.uid, self.GlobalVideoList, True):
             return True
         else:
             return False
 
     def del_user_from_list(self, user):
-        if help_find(user.uid, self.GlobalUserList, True):
+        if not help_find(user.uid, self.GlobalUserList, True):
             return True
         else:
             return False

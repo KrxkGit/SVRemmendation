@@ -40,13 +40,18 @@ class Video:
     user_list = []
 
     # 创建新视频
-    def __init__(self, category: int, uid: int, length: float, name: str):
+    def __init__(self, category: int, uid: int, length: float, name: str, watch: int, like: int, comment: int,
+                 share: int):
         self.category = category
         self.uid = uid
         self.length = length
         self.name = name
         self.feedback_weight = None
         self.hot = False
+        self.watch = watch
+        self.like = like
+        self.comment = comment
+        self.share = share
 
     # 判断是否为今日热点(受喜爱程度)并修改
     # def is_hot(self):
