@@ -20,10 +20,13 @@ class Ui_video(object):
         self.back.setObjectName("back")
 
         self.retranslateUi(video)
-        self.back.clicked.connect(video.raise) # type: ignore
+        self.back.clicked.connect(self.DisplayVideo) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(video)
 
     def retranslateUi(self, video):
         _translate = QtCore.QCoreApplication.translate
         video.setWindowTitle(_translate("video", "Form"))
         self.back.setText(_translate("video", "返回"))
+
+    def DisplayVideo(self):
+        pass
