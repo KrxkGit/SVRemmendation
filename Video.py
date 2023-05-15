@@ -61,21 +61,19 @@ class Video:
 
     # 观看一次视频，更改已观看用户信息
     # 输入：观看用户、观看时长
-    def new_user(self, uid, new_len: float, isLike: bool, isComment: bool, isShare: bool):
+    def new_user(self, uid, stay_len: float, isLike: bool, isComment: bool, isShare: bool):
         # 根据id查找是否该用户已观看过，若是，次数加1，修改平均停留时长；否则新加
         self.watch = self.watch + 1
         exist: bool = False  # 判断是否已被该用户观看过
         for n in self.user_list:
             if uid == n[0]:
                 n[1] = n[1] + 1
-                n[2] = (n[2] + new_len / self.length) / n[1]
+                n[2] = (n[2] + stay_len / self.length) / n[1]
                 exist = True
                 break
         if not exist:
-            self.user_list.append([uid, 1, new_len / self.length])
+            self.user_list.append([uid, 1, stay_len / self.length])
 
-        # 其余操作
-        # self.is_hot()  # 视频是否变为热点
         # 是否点赞
         if isLike:
             self.like = self.like + 1
@@ -86,5 +84,3 @@ class Video:
         if isShare:
             self.share = self.share + 1
 
-    def IncreaseWatchLen(self, len: int):
-        self.length = len

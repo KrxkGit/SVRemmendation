@@ -14,7 +14,7 @@ class ExtraWeight:
     def GenExWeight(self):
         user = self.user
         for category in range(10):
-            self.exWeightList[category] = user.stay_p(category)
+            self.exWeightList[category] = user.stay_percent(category)
             self.exWeightList /= self.exWeightList.sum()
 
     def GetExWeight(self, video):

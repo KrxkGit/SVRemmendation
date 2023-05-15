@@ -46,18 +46,18 @@ class User:
 
     # 观看一个视频，更改已观看视频信息
     # 输入：观看视频、停留时长
-    def new_video(self, video, new_len: float):
+    def new_video(self, video, stay_len: float):
         # 根据id查找是否已看过，若是，次数加1,；否则新加一个
         self.num_of_video = self.num_of_video + 1
         exist: bool = False  # 判断是否已看过该视频
         for n in self.video_list[video.category]:
             if n[0] == video.uid:
                 n[1] = n[1] + 1
-                n[2] = (n[2] + new_len / video.length) / n[1]
+                n[2] = (n[2] + stay_len / video.length) / n[1]
                 exist = True
                 break
         if not exist:
-            self.video_list[video.category].append([video.uid, 1, new_len / video.length])
+            self.video_list[video.category].append([video.uid, 1, stay_len / video.length])
 
     # 获得一类视频总观看次数
     def num_in_category(self, category) -> int:
@@ -67,7 +67,7 @@ class User:
         return total
 
     # 获得对一类视频（电视-娱乐）的总平均停留时间占比
-    def stay_p(self, category: int) -> float:
+    def stay_percent(self, category: int) -> float:
         total = 0.000
         for n in self.video_list[category]:
             total = total + n[2]
