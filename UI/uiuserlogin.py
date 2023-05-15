@@ -51,8 +51,8 @@ class Ui_userlogin(object):
         self.verticalLayout.addWidget(self.widget_2)
 
         self.retranslateUi(userlogin)
-        self.login.clicked.connect(userlogin.raise) # type: ignore
-        self.back.clicked.connect(userlogin.raise) # type: ignore
+        self.login.clicked.connect(self.login) # type: ignore
+        self.back.clicked.connect(self.GoBack()) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(userlogin)
 
     def retranslateUi(self, userlogin):
@@ -61,3 +61,11 @@ class Ui_userlogin(object):
         self.label.setText(_translate("userlogin", "用户编号："))
         self.login.setText(_translate("userlogin", "登录"))
         self.back.setText(_translate("userlogin", "返回"))
+
+    def GoBack(self):
+        self.close()
+        pass
+
+    def Login(self):
+        print('登录')
+        pass

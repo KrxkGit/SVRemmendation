@@ -36,8 +36,8 @@ class Ui_Widget(object):
         self.horizontalLayout.addItem(spacerItem2)
 
         self.retranslateUi(Widget)
-        self.userLogin.clicked.connect(Widget.raise) # type: ignore
-        self.videoLogin.clicked.connect(Widget.raise) # type: ignore
+        self.userLogin.clicked.connect(self.UserLogin()) # type: ignore
+        self.videoLogin.clicked.connect(self.videoLogin) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Widget)
 
     def retranslateUi(self, Widget):
@@ -45,3 +45,13 @@ class Ui_Widget(object):
         Widget.setWindowTitle(_translate("Widget", "短视频推荐算法"))
         self.userLogin.setText(_translate("Widget", "用户登录"))
         self.videoLogin.setText(_translate("Widget", "视频登录"))
+
+    def UserLogin(self):
+        from uiuserlogin import Ui_userlogin
+        dialog = Ui_userlogin()
+        dialog.exec_()
+
+    def VideoLogin(self):
+        from uivideologin import Ui_vediologin
+        dialog = Ui_vediologin()
+        dialog.exec_()
