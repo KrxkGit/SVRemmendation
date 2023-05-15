@@ -52,6 +52,7 @@ class Video:
         self.like = like
         self.comment = comment
         self.share = share
+        self.user_list = []
 
     # 判断是否为今日热点(受喜爱程度)并修改
     # def is_hot(self):
@@ -60,18 +61,18 @@ class Video:
 
     # 观看一次视频，更改已观看用户信息
     # 输入：观看用户、观看时长
-    def new_user(self, user, new_len: float, isLike: bool, isComment: bool, isShare: bool):
+    def new_user(self, uid, new_len: float, isLike: bool, isComment: bool, isShare: bool):
         # 根据id查找是否该用户已观看过，若是，次数加1，修改平均停留时长；否则新加
         self.watch = self.watch + 1
         exist: bool = False  # 判断是否已被该用户观看过
         for n in self.user_list:
-            if user.uid == n[0]:
+            if uid == n[0]:
                 n[1] = n[1] + 1
                 n[2] = (n[2] + new_len / self.length) / n[1]
                 exist = True
                 break
         if not exist:
-            self.user_list.append([user.id, 1, new_len / self.length])
+            self.user_list.append([uid, 1, new_len / self.length])
 
         # 其余操作
         # self.is_hot()  # 视频是否变为热点
@@ -84,3 +85,6 @@ class Video:
         # 是否分享
         if isShare:
             self.share = self.share + 1
+
+    def IncreaseWatchLen(self, len: int):
+        self.length = len
