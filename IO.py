@@ -5,7 +5,7 @@ import Video
 from GlobalVariable import global_obj
 
 # 读取Excel文件
-data = pd.read_csv('Data.csv', nrows=10)
+data = pd.read_csv('Data.csv', nrows=10, encoding='utf-8')
 
 
 # 创建Video对象列表
@@ -27,11 +27,17 @@ def ReadFromFile():
 
         global_obj.add_video_to_list(video)
 
-    videos = global_obj.GlobalVideoList
-    
 
-    for v in videos:
-        print(v.uid, v.name, v.user_list)
+def SaveToFile():
+    df = pd.DataFrame(columns=['category', 'ID', 'length', 'comment', 'like', 'watch', 'share', 'name', 'user_list'])
+    df.loc[2] = [0, 1, 112, 4916, 11380, 1750690, 4847, '洗衣机在家很闷，改装一下出去溜溜', "4191,5778"]
+
+    # df_insert = pd.DataFrame([])
+    # df_insert.columns = ['category', 'ID', 'length,comment', 'like', 'watch', 'share', 'name', 'user_list']
+    # df = pd.concat([df, df_insert], ignore_index=True, axis=0)
+
+    df.to_csv('2.csv', encoding='utf-8', index=False)
 
 
-ReadFromFile()
+# ReadFromFile()
+SaveToFile()
