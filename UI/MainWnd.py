@@ -76,7 +76,6 @@ class Ui_MainWnd(object):
         self.widget_video.show()
         print('login video')
 
-
     def AnalysisFun(self):
         self.widget_analysis = QtWidgets.QWidget()
         analysis_wnd = AnalysisWnd.Ui_AnalysisWnd()
