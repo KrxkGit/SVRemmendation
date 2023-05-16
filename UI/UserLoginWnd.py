@@ -32,6 +32,7 @@ class Ui_UserLoginWnd(object):
         self.textEdit = QtWidgets.QTextEdit(UserLoginWnd)
         self.textEdit.setGeometry(QtCore.QRect(360, 20, 221, 41))
         self.textEdit.setObjectName("textEdit")
+        self.textEdit.setFont(font)
         self.listHistory = QtWidgets.QListView(UserLoginWnd)
         self.listHistory.setGeometry(QtCore.QRect(510, 170, 411, 601))
         font = QtGui.QFont()

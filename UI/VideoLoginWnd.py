@@ -25,6 +25,7 @@ class Ui_VideoLoginWnd(object):
         self.textEdit = QtWidgets.QTextEdit(VideoLoginWnd)
         self.textEdit.setGeometry(QtCore.QRect(270, 40, 221, 41))
         self.textEdit.setObjectName("textEdit")
+        self.textEdit.setFont(font)
         self.Query = QtWidgets.QPushButton(VideoLoginWnd)
         self.Query.setGeometry(QtCore.QRect(520, 40, 131, 41))
         font = QtGui.QFont()
