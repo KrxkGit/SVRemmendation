@@ -1,5 +1,4 @@
-python -m PyQt5.uic.pyuic user.ui -o uiuser.py
-python -m PyQt5.uic.pyuic userlogin.ui -o uiuserlogin.py
-python -m PyQt5.uic.pyuic video.ui -o uivideo.py
-python -m PyQt5.uic.pyuic videologin.ui -o uivideologin.py
-python -m PyQt5.uic.pyuic widget.ui -o uiwidget.py
+python -m PyQt5.uic.pyuic AnalysisWnd.ui -o AnalysisWnd.py
+python -m PyQt5.uic.pyuic MainWnd.ui -o MainWnd.py
+python -m PyQt5.uic.pyuic VideoLoginWnd.ui -o VideoLoginWnd.py
+python -m PyQt5.uic.pyuic UserLoginWnd.ui -o UserLoginWnd.py
