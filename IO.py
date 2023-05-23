@@ -4,7 +4,7 @@ from GlobalVariable import global_obj
 
 def ReadFromFile():
     from Video import Video
-    data = pd.read_csv('Data.csv')
+    data = pd.read_csv('../Data.csv' , nrows=100)
     for index, row in data.iterrows():
         video = Video(
             category=int(row['category']),

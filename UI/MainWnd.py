@@ -60,8 +60,8 @@ class Ui_MainWnd(object):
 
     def UserLogin(self):
         self.widget_user = QtWidgets.QWidget()
-        user_login_wnd = UserLoginWnd.Ui_UserLoginWnd()
-        user_login_wnd.setupUi(self.widget_user)
+        self.user_login_wnd = UserLoginWnd.Ui_UserLoginWnd()
+        self.user_login_wnd.setupUi(self.widget_user)
         from ReloadIcon import SetWndIcon
         SetWndIcon(self.widget_user)
         self.widget_user.show()
@@ -69,8 +69,8 @@ class Ui_MainWnd(object):
 
     def VideoLogin(self):
         self.widget_video = QtWidgets.QWidget()
-        video_login_wnd = VideoLoginWnd.Ui_VideoLoginWnd()
-        video_login_wnd.setupUi(self.widget_video)
+        self.video_login_wnd = VideoLoginWnd.Ui_VideoLoginWnd()
+        self.video_login_wnd.setupUi(self.widget_video)
         from ReloadIcon import SetWndIcon
         SetWndIcon(self.widget_video)
         self.widget_video.show()
@@ -78,8 +78,8 @@ class Ui_MainWnd(object):
 
     def AnalysisFun(self):
         self.widget_analysis = QtWidgets.QWidget()
-        analysis_wnd = AnalysisWnd.Ui_AnalysisWnd()
-        analysis_wnd.setupUi(self.widget_analysis)
+        self.analysis_wnd = AnalysisWnd.Ui_AnalysisWnd()
+        self.analysis_wnd.setupUi(self.widget_analysis)
         from ReloadIcon import SetWndIcon
         SetWndIcon(self.widget_analysis)
         self.widget_analysis.show()

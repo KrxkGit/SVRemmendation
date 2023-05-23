@@ -9,13 +9,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QListWidgetItem
+from PyQt5.QtCore import  QStringListModel
 
 
 class Ui_UserLoginWnd(object):
     def setupUi(self, UserLoginWnd):
         UserLoginWnd.setObjectName("UserLoginWnd")
         UserLoginWnd.resize(961, 794)
-        self.listToPlay = QtWidgets.QListWidget(UserLoginWnd)
+        self.listToPlay = QtWidgets.QListView(UserLoginWnd)
         self.listToPlay.setGeometry(QtCore.QRect(40, 170, 431, 601))
         font = QtGui.QFont()
         font.setFamily("宋体")
@@ -84,11 +86,16 @@ class Ui_UserLoginWnd(object):
         self.Praise.setObjectName("Praise")
 
         self.retranslateUi(UserLoginWnd)
-        self.Query.clicked.connect(UserLoginWnd.close) # type: ignore
-        self.Praise.clicked.connect(UserLoginWnd.close) # type: ignore
-        self.Comment.clicked.connect(UserLoginWnd.close) # type: ignore
-        self.Share.clicked.connect(UserLoginWnd.close) # type: ignore
+        self.Query.clicked.connect(self.OnQuery)
+        self.Praise.clicked.connect(self.OnPraise)
+        self.Comment.clicked.connect(self.OnComment)
+        self.Share.clicked.connect(self.OnShare)
         QtCore.QMetaObject.connectSlotsByName(UserLoginWnd)
+
+        self.playItems = []
+        self.HistoryItems = []
+        self.listToPlay.clicked.connect(self.checkPlayItem)
+        self.listHistory.clicked.connect(self.checkHistoryItem)
 
     def retranslateUi(self, UserLoginWnd):
         _translate = QtCore.QCoreApplication.translate
@@ -100,3 +107,37 @@ class Ui_UserLoginWnd(object):
         self.Share.setText(_translate("UserLoginWnd", "分享"))
         self.Comment.setText(_translate("UserLoginWnd", "评论"))
         self.Praise.setText(_translate("UserLoginWnd", "点赞"))
+
+    def OnQuery(self):
+        from GlobalVariable import global_obj
+
+        self.query_uid = int(self.textEdit.toPlainText())
+        self.cur_user = global_obj.GlobalUserList[self.query_uid]
+
+        list_model = QStringListModel()
+
+        for video in self.cur_user.to_play_list:
+            self.playItems.extend([str(video.uid)+' '+str(video.name)])
+        list_model.setStringList(self.playItems)
+        self.listToPlay.setModel(list_model)
+
+        for video in self.cur_user.video_list:
+            self.HistoryItems.extend([str(video.uid) + ' ' + str(video.name)])
+        list_model.setStringList(self.HistoryItems)
+        self.listHistory.setModel(list_model)
+
+    def checkPlayItem(self, index):
+        print('选择:', index.row())
+
+    def checkHistoryItem(self, index):
+        print('选择:', index.row())
+
+
+    def OnPraise(self):
+        print('praise')
+
+    def OnComment(self):
+        print('Comment')
+
+    def OnShare(self):
+        print('Share')
