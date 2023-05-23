@@ -1,10 +1,13 @@
 import pandas as pd
 from GlobalVariable import global_obj
 
+file_path = '../Data_test.csv'
+
 
 def ReadFromFile():
     from Video import Video
-    data = pd.read_csv('../Data.csv' , nrows=100)
+    from GenUsers import testVideos
+    data = pd.read_csv(file_path, nrows=testVideos)
     for index, row in data.iterrows():
         video = Video(
             category=int(row['category']),
@@ -23,7 +26,7 @@ def ReadFromFile():
                 continue
             video.new_user(int(user_id), 0, False, False, False)  # 考虑隐私与复杂度问题，文件不存储用户行为信息（时长、点赞、评论等），该功能仅在内存实现
             global_obj.add_video_to_list(video)
-    print('done')
+    print('read from file done')
 
 
 def ConvertListToStr(ul: list):
@@ -40,6 +43,6 @@ def SaveToFile():
         df.loc[i + 2] = [video.category, video.uid, video.length, video.comment, video.like, video.watch, video.share,
                          video.name, ConvertListToStr(video.user_list)]
 
-    df.to_csv('Data.csv', encoding='utf-8', index=False)
-    print('done')
+    df.to_csv(file_path, encoding='utf-8', index=False)
+    print('save to file done')
 

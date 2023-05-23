@@ -10,7 +10,6 @@ from GenUsers import GenUsers
 if __name__ == '__main__':
     IO.ReadFromFile()
     GenUsers()  # 生成模拟用户
-
     app = QtWidgets.QApplication(sys.argv)
     widget = QtWidgets.QWidget()
     main_wnd = MainWnd.Ui_MainWnd()

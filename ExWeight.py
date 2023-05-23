@@ -9,7 +9,7 @@ class ExtraWeight:
     def __init__(self, user):
         import numpy as np
         self.user = user
-        self.exWeightList = np.zeros(10, dtype=float)
+        self.exWeightList = np.ones(10, dtype=float)
 
     def GenExWeight(self):
         user = self.user

@@ -2,6 +2,7 @@
 """
 根据用户属性获得初始权重
 """
+import random
 
 
 # 根据各属性获得初始权重，注意：初始权重具有全局性
@@ -9,10 +10,15 @@ class InitWeight:
     def __init__(self):
         import numpy as np
         # 权重张量格式(统计性)：[维度1表，维度2表，维度3表]，为加快速度，表用二维数组实现
-        self.weight1 = np.zeros((10, 5))
-        self.weight2 = np.zeros((10, 2))
-        self.weight3 = np.zeros((10, 6))
+        self.weight1 = np.ones((10, 5))
+        self.weight2 = np.ones((10, 2))
+        self.weight3 = np.ones((10, 6))
         self.weightList = [self.weight1, self.weight2, self.weight3]
+
+        # 测试模拟
+        for i in range(10):
+            for j in range(5):
+                self.weight1[i][j] = random.randint(1, 30)
 
     # 获得类别权重
     def GetInitWeight(self, category, work_phase, gender, job):

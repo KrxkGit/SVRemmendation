@@ -18,9 +18,17 @@ class Weight:
     def CalWeight(self, video):
         user = self.user
         fb_weight_obj = FeedbackWeight.FeedbackWeight(video)
-        weight = (self.init_weight_obj.GetInitWeight(user.category, user.work_phase, user.gender, user.job) *
+
+        # 真正计算方式
+        print('分类' + str(video.category))
+        print('初始权重' + str(self.init_weight_obj.GetInitWeight(video.category, user.work_phase, user.gender, user.job)))
+        weight = (self.init_weight_obj.GetInitWeight(video.category, user.work_phase, user.gender, user.job) *
                   self.ex_weight_obj.GetExWeight(video) * fb_weight_obj.take_result_percent())
-        if video.is_hot():
+
+        # 测试时临时处理
+        # weight = fb_weight_obj.take_result_percent()
+
+        if video.hot:
             from GlobalVariable import hot_add_weight_percent
             weight *= (1 + hot_add_weight_percent)
         return weight

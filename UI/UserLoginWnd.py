@@ -114,17 +114,26 @@ class Ui_UserLoginWnd(object):
         self.query_uid = int(self.textEdit.toPlainText())
         self.cur_user = global_obj.GlobalUserList[self.query_uid]
 
-        list_model = QStringListModel()
+        print('阶段: %d 性别:%d 工作:%d' %(self.cur_user.work_phase, self.cur_user.gender, self.cur_user.job))
 
+        self.cur_user.HelpRefreshWeight()
+        self.cur_user.RefreshWeight()
+
+        list_model1 = QStringListModel()
+        list_model2 = QStringListModel()
+
+        self.playItems = []  # 先清空
         for video in self.cur_user.to_play_list:
-            self.playItems.extend([str(video.uid)+' '+str(video.name)])
-        list_model.setStringList(self.playItems)
-        self.listToPlay.setModel(list_model)
+            print(video[0])
+            print(video[1])
+            self.playItems.extend([str(video[0])+' '+str(global_obj.GlobalVideoList[video[0]-1].name)])
+        list_model1.setStringList(self.playItems)
+        self.listToPlay.setModel(list_model1)
 
         for video in self.cur_user.video_list:
-            self.HistoryItems.extend([str(video.uid) + ' ' + str(video.name)])
-        list_model.setStringList(self.HistoryItems)
-        self.listHistory.setModel(list_model)
+            self.HistoryItems.extend(['历史1'])
+        list_model2.setStringList(self.HistoryItems)
+        self.listHistory.setModel(list_model2)
 
     def checkPlayItem(self, index):
         print('选择:', index.row())
