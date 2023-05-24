@@ -32,6 +32,9 @@ class User:
     # 已观看视频信息[[电视：[uid，次数times,平均停留时长占比ave_len_p],[uid,次数，平均停留时长占比ave_len_p]，……],[电影],……]
     video_list = [[], [], [], [], [], [], [], [], [], []]
 
+    # 取代已观看历史结构，其中元素为视频uid
+
+
     # 创建新用户
     def __init__(self, work_phase: int, gender: int, job: int, uid: int):
         import numpy as np
@@ -43,6 +46,7 @@ class User:
         self.weight_obj = Weight.Weight(self, global_obj.InitWeight)
         self.temp_play_list = None  # 临时播放列表
         self.to_play_list = np.zeros(refresh_frequency)  # 放置即将播放的视频
+        self.history_list = []  # 放置播放历史
 
     # 观看一个视频，更改已观看视频信息
     # 输入：观看视频、停留时长
@@ -91,3 +95,6 @@ class User:
     def RefreshWeight(self):  # 刷新播放列表
         self.to_play_list = None  # 释放内存
         self.to_play_list = self.temp_play_list
+
+    def HelpUpdateInitWeight(self, category):  # 辅助函数
+        global_obj.InitWeight.UpdateInitWeight(category, self.work_phase, self.gender, self.job)

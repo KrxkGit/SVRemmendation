@@ -31,7 +31,9 @@ class InitWeight:
     # 更新初始权重
     def UpdateInitWeight(self, category, work_phase, gender, job):
         from GlobalVariable import global_obj
-        delta = 1 / global_obj.GetTotalUserCount()
+        base_cut = 0.005  # 将观看数规模缩减后进行比较
+        delta = 1 / (global_obj.GetTotalUserCount() * base_cut)
         self.weight1[category][work_phase] += delta
         self.weight2[category][gender] += delta
         self.weight3[category][job] += delta
+

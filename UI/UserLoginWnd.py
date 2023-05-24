@@ -9,8 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QListWidgetItem
-from PyQt5.QtCore import  QStringListModel
+from PyQt5.QtCore import QStringListModel
 
 
 class Ui_UserLoginWnd(object):
@@ -92,10 +91,12 @@ class Ui_UserLoginWnd(object):
         self.Share.clicked.connect(self.OnShare)
         QtCore.QMetaObject.connectSlotsByName(UserLoginWnd)
 
-        self.playItems = []
-        self.HistoryItems = []
         self.listToPlay.clicked.connect(self.checkPlayItem)
         self.listHistory.clicked.connect(self.checkHistoryItem)
+
+        # 初始化数据模型
+        self.model_play = QStringListModel()
+        self.model_history = QStringListModel()
 
     def retranslateUi(self, UserLoginWnd):
         _translate = QtCore.QCoreApplication.translate
@@ -114,39 +115,58 @@ class Ui_UserLoginWnd(object):
         self.query_uid = int(self.textEdit.toPlainText())
         self.cur_user = global_obj.GlobalUserList[self.query_uid]
 
-        print('阶段: %d 性别:%d 工作:%d' %(self.cur_user.work_phase, self.cur_user.gender, self.cur_user.job))
-
         self.cur_user.HelpRefreshWeight()
         self.cur_user.RefreshWeight()
 
-        list_model1 = QStringListModel()
-        list_model2 = QStringListModel()
-
         self.playItems = []  # 先清空
-        for video in self.cur_user.to_play_list:
-            print(video[0])
-            print(video[1])
-            self.playItems.extend([str(video[0])+' '+str(global_obj.GlobalVideoList[video[0]-1].name)])
-        list_model1.setStringList(self.playItems)
-        self.listToPlay.setModel(list_model1)
+        self.HistoryItems = []  # 先清空
 
-        for video in self.cur_user.video_list:
-            self.HistoryItems.extend(['历史1'])
-        list_model2.setStringList(self.HistoryItems)
-        self.listHistory.setModel(list_model2)
+        for video in self.cur_user.to_play_list:
+            self.playItems.extend([str(video[0])+' '+str(global_obj.GlobalVideoList[video[0]-1].name)])
+        self.model_play.setStringList(self.playItems)
+        self.listToPlay.setModel(self.model_play)
+
+        # 重构历史视频列表
+        for video_uid in self.cur_user.history_list:
+            self.HistoryItems.extend([str(video_uid)+' '+str(global_obj.GlobalVideoList[video_uid-1].name)])
+
+        self.model_history.setStringList(self.HistoryItems)
+        self.listHistory.setModel(self.model_history)
 
     def checkPlayItem(self, index):
-        print('选择:', index.row())
+        # 点击项目表示观看
+        video_uid = self.cur_user.to_play_list[index.row()][0]
+        from GlobalVariable import global_obj
+        video = global_obj.GlobalVideoList[video_uid-1]
+        self.cur_video = video  # 保存起来，用于点赞等操作
+        video.watch += 1
+        video.user_list.append(self.cur_user.uid)  # 存储已观看用户,不去重
+        print('%s 观看数%d ' %(video.name, video.watch))
+        self.HistoryItems.extend([str(video.uid)+' '+str(video.name)])  # 临时更改
+        self.model_history.setStringList(self.HistoryItems)
+        self.cur_user.history_list.append(video_uid)  # 更新数据到用户对象，永久更改
+
+        # 更新权重
+        self.cur_user.HelpUpdateInitWeight(video.category)
 
     def checkHistoryItem(self, index):
         print('选择:', index.row())
 
 
     def OnPraise(self):
+        video = self.cur_video
+        video.like += 1
+        print(video.like)
         print('praise')
 
     def OnComment(self):
+        video = self.cur_video
+        video.comment += 1
+        print(video.comment)
         print('Comment')
 
     def OnShare(self):
+        video = self.cur_video
+        video.share += 1
+        print(video.share)
         print('Share')

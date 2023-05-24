@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5.QtGui import QStandardItem, QStandardItemModel
 
 class Ui_AnalysisWnd(object):
     def setupUi(self, AnalysisWnd):
@@ -22,7 +22,7 @@ class Ui_AnalysisWnd(object):
         self.comboBox.setGeometry(QtCore.QRect(310, 30, 271, 51))
         font = QtGui.QFont()
         font.setFamily("隶书")
-        font.setPointSize(14)
+        font.setPointSize(20)
         self.comboBox.setFont(font)
         self.comboBox.setObjectName("comboBox")
         self.label = QtWidgets.QLabel(AnalysisWnd)
@@ -41,11 +41,53 @@ class Ui_AnalysisWnd(object):
         self.RunAnalysis.setObjectName("RunAnalysis")
 
         self.retranslateUi(AnalysisWnd)
-        self.RunAnalysis.clicked.connect(AnalysisWnd.close) # type: ignore
+        self.RunAnalysis.clicked.connect(self.OnRunAnalysis) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(AnalysisWnd)
+
+        #  初始化下拉列表
+        self.comboBox.addItems(['工作阶段', '性别', '职业类型'])
 
     def retranslateUi(self, AnalysisWnd):
         _translate = QtCore.QCoreApplication.translate
         AnalysisWnd.setWindowTitle(_translate("AnalysisWnd", "统计分析"))
         self.label.setText(_translate("AnalysisWnd", "请选择分析维度："))
         self.RunAnalysis.setText(_translate("AnalysisWnd", "启动分析引擎"))
+
+    def OnRunAnalysis(self):
+        print('启动分析')
+        from GlobalVariable import global_obj
+        init_weight = global_obj.InitWeight
+        sel = self.comboBox.currentIndex()
+        row = 10
+        if sel == 0:
+            self.model_analysis = QStandardItemModel(10, 5)
+            self.model_analysis.setHorizontalHeaderLabels(['小学生', '初中生', '高中生', '大学生', '已参加工作'])
+            vl = init_weight.weight1
+            col = 5
+
+            print(0)
+        elif sel == 1:
+            self.model_analysis = QStandardItemModel(10, 2)
+            self.model_analysis.setHorizontalHeaderLabels(['男', '女'])
+            vl = init_weight.weight2
+            col = 2
+            print(1)
+        elif sel == 2:
+            self.model_analysis = QStandardItemModel(10, 6)
+            self.model_analysis.setHorizontalHeaderLabels(['老师', '学生', '程序员', '工程师', '网络主播', '其他'])
+            vl = init_weight.weight3
+            col = 6
+            print(2)
+        else:
+            print('fatal failed')
+            return
+
+        # 添加数据到TableView中
+        self.model_analysis.setVerticalHeaderLabels(['电视', '电影', '鬼畜', '生活', '时尚', '数码', '舞蹈', '音乐', '游戏', '娱乐'])
+        for i in range(row):
+            for j in range(col):
+                self.model_analysis.setItem(i, j, QStandardItem(str(vl[i][j])))
+
+        self.tableView.setModel(self.model_analysis)
+
+

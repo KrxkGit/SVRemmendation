@@ -20,13 +20,8 @@ class Weight:
         fb_weight_obj = FeedbackWeight.FeedbackWeight(video)
 
         # 真正计算方式
-        print('分类' + str(video.category))
-        print('初始权重' + str(self.init_weight_obj.GetInitWeight(video.category, user.work_phase, user.gender, user.job)))
         weight = (self.init_weight_obj.GetInitWeight(video.category, user.work_phase, user.gender, user.job) *
                   self.ex_weight_obj.GetExWeight(video) * fb_weight_obj.take_result_percent())
-
-        # 测试时临时处理
-        # weight = fb_weight_obj.take_result_percent()
 
         if video.hot:
             from GlobalVariable import hot_add_weight_percent

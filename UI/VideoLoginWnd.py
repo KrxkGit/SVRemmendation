@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QStringListModel
 
 
 class Ui_VideoLoginWnd(object):
@@ -70,7 +71,8 @@ class Ui_VideoLoginWnd(object):
         self.Query_2.setObjectName("Query_2")
 
         self.retranslateUi(VideoLoginWnd)
-        self.Query.clicked.connect(VideoLoginWnd.close) # type: ignore
+        self.Query.clicked.connect(self.OnQuery) # type: ignore
+        self.Query_2.clicked.connect(self.OnShiftHot)
         QtCore.QMetaObject.connectSlotsByName(VideoLoginWnd)
 
     def retranslateUi(self, VideoLoginWnd):
@@ -80,4 +82,33 @@ class Ui_VideoLoginWnd(object):
         self.Query.setText(_translate("VideoLoginWnd", "查询"))
         self.label_2.setText(_translate("VideoLoginWnd", "视频统计信息"))
         self.label_3.setText(_translate("VideoLoginWnd", "已观看用户"))
-        self.Query_2.setText(_translate("VideoLoginWnd", "设为热点"))
+        self.Query_2.setText(_translate("VideoLoginWnd", "切换热点"))
+
+    def OnQuery(self):
+        from GlobalVariable import global_obj
+        video_uid = int(self.textEdit.toPlainText())
+        video = global_obj.GlobalVideoList[video_uid - 1]
+        self.cur_video = video  # 保存
+        self.model_info = QStringListModel()
+        self.listView.setModel(self.model_info)
+
+        self.video_info = ['视频类别： ' + str(video.category), '视频标题: ' + video.name, '播放量： ' + str(video.watch),
+                           '点赞量： ' + str(video.like), '评论数： ' + str(video.comment), '分享量：' + str(video.share),
+                           '是否热点： ' + str(video.hot), '视频长度： ' + str(video.length)]
+        self.model_info.setStringList(self.video_info)
+
+        self.history_users = []
+        for user_uid in video.user_list:
+            self.history_users.append(str(user_uid))
+        self.model_history_users = QStringListModel()
+        self.model_history_users.setStringList(self.history_users)
+        self.listView_2.setModel(self.model_history_users)
+
+        print('查询')
+
+    def OnShiftHot(self):
+        if self.cur_video.hot:
+            self.cur_video.hot = False
+        else:
+            self.cur_video.hot = True
+        print('热点状态切换')

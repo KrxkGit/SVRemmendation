@@ -52,7 +52,7 @@ class Video:
         self.like = like
         self.comment = comment
         self.share = share
-        self.user_list = []
+        self.user_list = []   # 记录用户uid
 
     # 判断是否为今日热点(受喜爱程度)并修改
     # def is_hot(self):

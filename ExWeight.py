@@ -13,6 +13,7 @@ class ExtraWeight:
 
     def GenExWeight(self):
         user = self.user
+        # 由于数据结构改变，此部分代码需重写
         for category in range(10):
             self.exWeightList[category] = user.stay_percent(category)
             self.exWeightList /= self.exWeightList.sum()
