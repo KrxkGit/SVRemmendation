@@ -121,8 +121,8 @@ class Ui_UserLoginWnd(object):
         self.playItems = []  # 先清空
         self.HistoryItems = []  # 先清空
 
-        for video in self.cur_user.to_play_list:
-            self.playItems.extend([str(video[0])+' '+str(global_obj.GlobalVideoList[video[0]-1].name)])
+        for i, video in enumerate(self.cur_user.to_play_list):
+            self.playItems.extend([str(video[0]) + ' ' + str(global_obj.GlobalVideoList[video[0]-1].name)])
         self.model_play.setStringList(self.playItems)
         self.listToPlay.setModel(self.model_play)
 

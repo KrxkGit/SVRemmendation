@@ -8,6 +8,7 @@
 4、性别
 5、职业
 """
+import TimeTest
 import Weight
 from GlobalVariable import global_obj
 
@@ -34,7 +35,6 @@ class User:
 
     # 取代已观看历史结构，其中元素为视频uid
 
-
     # 创建新用户
     def __init__(self, work_phase: int, gender: int, job: int, uid: int):
         import numpy as np
@@ -50,32 +50,32 @@ class User:
 
     # 观看一个视频，更改已观看视频信息
     # 输入：观看视频、停留时长
-    def new_video(self, video, stay_len: float):
-        # 根据id查找是否已看过，若是，次数加1,；否则新加一个
-        self.num_of_video = self.num_of_video + 1
-        exist: bool = False  # 判断是否已看过该视频
-        for n in self.video_list[video.category]:
-            if n[0] == video.uid:
-                n[1] = n[1] + 1
-                n[2] = (n[2] + stay_len / video.length) / n[1]
-                exist = True
-                break
-        if not exist:
-            self.video_list[video.category].append([video.uid, 1, stay_len / video.length])
+    # def new_video(self, video, stay_len: float):
+    #     # 根据id查找是否已看过，若是，次数加1,；否则新加一个
+    #     self.num_of_video = self.num_of_video + 1
+    #     exist: bool = False  # 判断是否已看过该视频
+    #     for n in self.video_list[video.category]:
+    #         if n[0] == video.uid:
+    #             n[1] = n[1] + 1
+    #             n[2] = (n[2] + stay_len / video.length) / n[1]
+    #             exist = True
+    #             break
+    #     if not exist:
+    #         self.video_list[video.category].append([video.uid, 1, stay_len / video.length])
 
     # 获得一类视频总观看次数
-    def num_in_category(self, category) -> int:
-        total = 0
-        for n in self.video_list[category]:
-            total = total + n[1]
-        return total
-
-    # 获得对一类视频（电视-娱乐）的总平均停留时间占比
-    def stay_percent(self, category: int) -> float:
-        total = 0.000
-        for n in self.video_list[category]:
-            total = total + n[2]
-        return total / self.num_in_category(category)
+    # def num_in_category(self, category) -> int:
+    #     total = 0
+    #     for n in self.video_list[category]:
+    #         total = total + n[1]
+    #     return total
+    #
+    # # 获得对一类视频（电视-娱乐）的总平均停留时间占比
+    # def stay_percent(self, category: int) -> float:
+    #     total = 0.000
+    #     for n in self.video_list[category]:
+    #         total = total + n[2]
+    #     return total / self.num_in_category(category)
 
     # 查找某一视频的观看次数并返回
     def isWatched(self, video) -> int:
@@ -84,12 +84,15 @@ class User:
                 return n[1]
         return 0
 
+    @TimeTest.KrxkClock
     def HelpRefreshWeight(self):  # 重新计算权重
         self.temp_play_list = []
         from SortList import VideoListSort
         for video in global_obj.GlobalVideoList:
             weight = self.weight_obj.CalWeight(video)
             self.temp_play_list.append([video.uid, weight])
+            if len(self.temp_play_list)>100:
+                break
         VideoListSort(self.temp_play_list)
 
     def RefreshWeight(self):  # 刷新播放列表

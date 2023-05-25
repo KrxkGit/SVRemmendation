@@ -5,6 +5,7 @@
 
 import ExWeight
 import FeedbackWeight
+import TimeTest
 
 
 # 作为外壳为每一个用户提供权重计算功能
@@ -19,7 +20,6 @@ class Weight:
         user = self.user
         fb_weight_obj = FeedbackWeight.FeedbackWeight(video)
 
-        # 真正计算方式
         weight = (self.init_weight_obj.GetInitWeight(video.category, user.work_phase, user.gender, user.job) *
                   self.ex_weight_obj.GetExWeight(video) * fb_weight_obj.take_result_percent())
 

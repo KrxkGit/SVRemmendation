@@ -13,10 +13,16 @@ class ExtraWeight:
 
     def GenExWeight(self):
         user = self.user
-        # 由于数据结构改变，此部分代码需重写
-        for category in range(10):
-            self.exWeightList[category] = user.stay_percent(category)
-            self.exWeightList /= self.exWeightList.sum()
+        import numpy as np
+        from GlobalVariable import global_obj
+        category_arr = np.zeros(10, dtype=float)
+        for video_uid in user.history_list:
+            category_arr[global_obj.GlobalVideoList[video_uid].category] += 1
+
+        temp_sum = category_arr.sum()
+        if temp_sum != 0:
+            category_arr /= category_arr.sum()
 
     def GetExWeight(self, video):
+        self.GenExWeight()
         return self.exWeightList[video.category]

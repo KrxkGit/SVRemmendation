@@ -1,8 +1,9 @@
 # coding=utf-8
+import TimeTest
+from GlobalVariable import testVideos
 
-testVideos = 69  # 用于测试的视频数，也是从文件读取的视频数
 
-
+@TimeTest.KrxkClock
 def GenUsers():
     print('begin generate users')
     from User import User

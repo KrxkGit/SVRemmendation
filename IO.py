@@ -1,13 +1,34 @@
 import pandas as pd
+import TimeTest
 from GlobalVariable import global_obj
 
-file_path = '../Data_test.csv'
+file_path = '../Data.csv'
 
 
+def take_uid(video):
+    return video.uid
+
+
+@TimeTest.KrxkClock
 def ReadFromFile():
-    from Video import Video
     from GenUsers import testVideos
+    import threading
+    thread_list = []
     data = pd.read_csv(file_path, nrows=testVideos)
+    for i in range(11):
+        t = threading.Thread(target=WriteToMemory, args=(data[i * 10000:(i + 1) * 10000 + 1],))
+        thread_list.append(t)
+        t.start()
+
+    for t in thread_list:
+        t.join()
+
+    global_obj.GlobalVideoList.sort(key=take_uid, reverse=False)  # 升序排列
+
+
+@TimeTest.KrxkClock
+def WriteToMemory(data):
+    from Video import Video
     for index, row in data.iterrows():
         video = Video(
             category=int(row['category']),
@@ -24,9 +45,9 @@ def ReadFromFile():
         for user_id in user_id_list:
             if user_id == '':
                 continue
-            video.new_user(int(user_id), 0, False, False, False)  # 考虑隐私与复杂度问题，文件不存储用户行为信息（时长、点赞、评论等），该功能仅在内存实现
-            global_obj.add_video_to_list(video)
-    print('read from file done')
+            video.new_user(int(user_id))
+
+        global_obj.add_video_to_list(video)
 
 
 def ConvertListToStr(ul: list):
@@ -45,4 +66,3 @@ def SaveToFile():
 
     df.to_csv(file_path, encoding='utf-8', index=False)
     print('save to file done')
-
