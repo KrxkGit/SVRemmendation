@@ -84,7 +84,7 @@ class User:
                 return n[1]
         return 0
 
-    @TimeTest.KrxkClock
+    @TimeTest.Krxk_Clock
     def HelpRefreshWeight(self):  # 重新计算权重
         self.temp_play_list = []
         from SortList import VideoListSort

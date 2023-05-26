@@ -104,11 +104,11 @@ class Ui_VideoLoginWnd(object):
         self.model_history_users.setStringList(self.history_users)
         self.listView_2.setModel(self.model_history_users)
 
-        print('查询')
+        print('视频查询')
 
     def OnShiftHot(self):
         if self.cur_video.hot:
             self.cur_video.hot = False
         else:
             self.cur_video.hot = True
-        print('热点状态切换')
+        print('热点状态切换，当前状态： ', str(self.cur_video.hot))

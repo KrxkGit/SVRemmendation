@@ -141,7 +141,7 @@ class Ui_UserLoginWnd(object):
         self.cur_video = video  # 保存起来，用于点赞等操作
         video.watch += 1
         video.user_list.append(self.cur_user.uid)  # 存储已观看用户,不去重
-        print('%s 观看数%d ' %(video.name, video.watch))
+        print('%s 观看数 %d ' %(video.name, video.watch))
         self.HistoryItems.extend([str(video.uid)+' '+str(video.name)])  # 临时更改
         self.model_history.setStringList(self.HistoryItems)
         self.cur_user.history_list.append(video_uid)  # 更新数据到用户对象，永久更改
@@ -150,23 +150,21 @@ class Ui_UserLoginWnd(object):
         self.cur_user.HelpUpdateInitWeight(video.category)
 
     def checkHistoryItem(self, index):
-        print('选择:', index.row())
+        print('选择历史: ', index.row())
 
 
     def OnPraise(self):
         video = self.cur_video
         video.like += 1
-        print(video.like)
-        print('praise')
+        print('%s 点赞数： %d' % (video.name, video.like))
+
 
     def OnComment(self):
         video = self.cur_video
         video.comment += 1
-        print(video.comment)
-        print('Comment')
+        print('%s 评论数： %d' % (video.name, video.comment))
 
     def OnShare(self):
         video = self.cur_video
         video.share += 1
-        print(video.share)
-        print('Share')
+        print('%s 分享数： %d' % (video.name, video.share))

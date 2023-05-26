@@ -7,7 +7,7 @@ from GlobalVariable import global_obj
 def take_uid(user):
     return user.uid
 
-@TimeTest.KrxkClock
+@TimeTest.Krxk_Clock
 def GenUsers():
     import threading
     # print('begin generate users')
@@ -26,7 +26,7 @@ def GenUsers():
     global_obj.GlobalUserList.sort(key=take_uid, reverse=False)
     # print('generate users done')
 
-@TimeTest.KrxkClock
+@TimeTest.Krxk_Clock
 def HelpGenUsers(start_uid, end_uid):
     from User import User
     import random

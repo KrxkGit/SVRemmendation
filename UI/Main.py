@@ -1,13 +1,13 @@
 # coding=utf-8
-
+import os.path
 import sys
 import time
-
 from PyQt5 import QtWidgets
 import welcome
 import MainWnd
 import IO
 from GenUsers import GenUsers
+import configparser
 
 
 def close_welcome(thread1, thread2, wnd):  # 等待准备工作完成然后关闭欢迎窗口
@@ -19,6 +19,7 @@ def close_welcome(thread1, thread2, wnd):  # 等待准备工作完成然后关�
 
 
 if __name__ == '__main__':
+    sys.path.extend(os.path.pardir)
     # 准备工作，启动线程
     t1 = time.time()
 
@@ -53,7 +54,12 @@ if __name__ == '__main__':
     SetWndIcon(widget)  # 增加icon图标
 
     exit_code = app.exec_()
-    print('开始写文件')
-    IO.SaveToFile()
-    print('程序退出')
+
+    # 读取配置文件
+    config = configparser.ConfigParser()
+    config.read('../Setting.ini')
+    if int(config['AutoSave']['default']) == 1:
+        print('开始写文件')
+        IO.SaveToFile()
+        print('程序退出')
     sys.exit(exit_code)  # 为主界面启动消息循环

@@ -65,19 +65,17 @@ class Ui_AnalysisWnd(object):
             vl = init_weight.weight1
             col = 5
 
-            print(0)
         elif sel == 1:
             self.model_analysis = QStandardItemModel(10, 2)
             self.model_analysis.setHorizontalHeaderLabels(['男', '女'])
             vl = init_weight.weight2
             col = 2
-            print(1)
+
         elif sel == 2:
             self.model_analysis = QStandardItemModel(10, 6)
             self.model_analysis.setHorizontalHeaderLabels(['老师', '学生', '程序员', '工程师', '网络主播', '其他'])
             vl = init_weight.weight3
             col = 6
-            print(2)
         else:
             print('fatal failed')
             return

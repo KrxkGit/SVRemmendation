@@ -65,7 +65,6 @@ class Ui_MainWnd(object):
         from ReloadIcon import SetWndIcon
         SetWndIcon(self.widget_user)
         self.widget_user.show()
-        print('login user')
 
     def VideoLogin(self):
         self.widget_video = QtWidgets.QWidget()
@@ -74,7 +73,6 @@ class Ui_MainWnd(object):
         from ReloadIcon import SetWndIcon
         SetWndIcon(self.widget_video)
         self.widget_video.show()
-        print('login video')
 
     def AnalysisFun(self):
         self.widget_analysis = QtWidgets.QWidget()
@@ -83,4 +81,3 @@ class Ui_MainWnd(object):
         from ReloadIcon import SetWndIcon
         SetWndIcon(self.widget_analysis)
         self.widget_analysis.show()
-        print('analysis')
