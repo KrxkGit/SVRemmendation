@@ -6,7 +6,9 @@
 import InitWeightMatrix
 
 
-def help_find(uid: int, global_list, bToDelete: bool):  # bToDelete 指明在遍历时是否删除该元素，用于提高删除效率
+def help_find(uid: int, global_list, bToDelete: bool, bFastModel):  # bToDelete 指明在遍历时是否删除该元素，用于提高删除效率
+    if bFastModel:  # 快速模式下不遍历链表，直接返回False，即默认原列表不存在
+        return False
     for item in global_list:
         if uid == item.uid:
             if bToDelete:
@@ -27,12 +29,12 @@ class GlobalVariable:
     def GetTotalVideoCount(self):
         return len(self.GlobalVideoList)
 
-    def add_video_to_list(self, video):
-        if not help_find(video.uid, self.GlobalVideoList, False):
+    def add_video_to_list(self, video, bFastModel):
+        if not help_find(video.uid, self.GlobalVideoList, False, True):
             self.GlobalVideoList.append(video)
 
-    def add_user_to_list(self, user):
-        if not help_find(user.uid, self.GlobalUserList, False):
+    def add_user_to_list(self, user, bFastModel):
+        if not help_find(user.uid, self.GlobalUserList, False, bFastModel):
             self.GlobalUserList.append(user)
 
     def del_video_from_list(self, video):
@@ -72,4 +74,4 @@ class GlobalVariable:
 global_obj = GlobalVariable()  # 全局变量
 refresh_frequency = 100  # 用户刷n条视频后重新计算权重
 hot_add_weight_percent: float = 300  # 对于被设置为“热”的视频，以百分比方式增加权重，如原来权重为3，则增加为3*(1+0.1)=3.3
-testVideos = 10000  # 用于测试的视频数，也是从文件读取的视频数
+testVideos = 100000  # 用于测试的视频数，也是从文件读取的视频数

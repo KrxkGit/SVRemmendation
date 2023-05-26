@@ -1,3 +1,5 @@
+import time
+
 import pandas as pd
 import TimeTest
 from GlobalVariable import global_obj
@@ -15,8 +17,12 @@ def ReadFromFile():
     import threading
     thread_list = []
     data = pd.read_csv(file_path, nrows=testVideos)
-    for i in range(11):
-        t = threading.Thread(target=WriteToMemory, args=(data[i * 10000:(i + 1) * 10000 + 1],))
+
+    #  分成大组，简单处理，余数进1
+    group_size = 2000
+    group_num = int(testVideos/group_size) + 1
+    for i in range(group_num):
+        t = threading.Thread(target=WriteToMemory, args=(data[i * group_size:(i + 1) * group_size],))
         thread_list.append(t)
         t.start()
 
@@ -47,7 +53,7 @@ def WriteToMemory(data):
                 continue
             video.new_user(int(user_id))
 
-        global_obj.add_video_to_list(video)
+        global_obj.add_video_to_list(video, True)  # 采用快速模式添加
 
 
 def ConvertListToStr(ul: list):

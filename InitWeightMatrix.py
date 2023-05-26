@@ -15,11 +15,6 @@ class InitWeight:
         self.weight3 = np.ones((10, 6))
         self.weightList = [self.weight1, self.weight2, self.weight3]
 
-        # 测试模拟
-        # for i in range(10):
-        #     for j in range(5):
-        #         self.weight1[i][j] = random.randint(1, 30)
-
     # 获得类别权重
     def GetInitWeight(self, category, work_phase, gender, job):
         weight = 1
