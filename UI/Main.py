@@ -52,5 +52,8 @@ if __name__ == '__main__':
 
     SetWndIcon(widget)  # 增加icon图标
 
-    # IO.SaveToFile()
-    sys.exit(app.exec_())  # 为主界面启动消息循环
+    exit_code = app.exec_()
+    print('开始写文件')
+    IO.SaveToFile()
+    print('程序退出')
+    sys.exit(exit_code)  # 为主界面启动消息循环

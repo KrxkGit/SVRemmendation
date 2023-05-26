@@ -57,18 +57,22 @@ def WriteToMemory(data):
 
 
 def ConvertListToStr(ul: list):
+    return
     result = str('')
     for item in ul:
-        result += str(item[0]) + ';'
+        result += str(item) + ';'
     result = result[:-1]
     return result
 
-
+@TimeTest.KrxkClock
 def SaveToFile():
     df = pd.DataFrame(columns=['category', 'ID', 'length', 'comment', 'like', 'watch', 'share', 'name', 'user_list'])
     for i, video in enumerate(global_obj.GlobalVideoList):
-        df.loc[i + 2] = [video.category, video.uid, video.length, video.comment, video.like, video.watch, video.share,
-                         video.name, ConvertListToStr(video.user_list)]
+        '''df.loc[i + 2] = [video.category, video.uid, video.length, video.comment, video.like, video.watch, 
+                            video.share,video.name, ConvertListToStr(video.user_list)'''
+    print('循环结束')
+    df.to_csv(file_path + '.bak', encoding='utf-8', index=False)
+    # print('save to file done')
 
-    df.to_csv(file_path, encoding='utf-8', index=False)
-    print('save to file done')
+def HelpWriteFile():
+    pass

@@ -53,7 +53,7 @@ class Ui_MainWnd(object):
 
     def retranslateUi(self, MainWnd):
         _translate = QtCore.QCoreApplication.translate
-        MainWnd.setWindowTitle(_translate("MainWnd", "短视频推荐系统 & By Krxk"))
+        MainWnd.setWindowTitle(_translate("MainWnd", "短视频推荐系统"))
         self.UL.setText(_translate("MainWnd", "用户登录"))
         self.VL.setText(_translate("MainWnd", "视频登录"))
         self.Analysis.setText(_translate("MainWnd", "统计分析"))
