@@ -7,16 +7,17 @@ from GlobalVariable import global_obj
 def take_uid(user):
     return user.uid
 
+
 @TimeTest.Krxk_Clock
 def GenUsers():
     import threading
     # print('begin generate users')
     total_size = 20000  # 指明要生成的用户数
     group_size = 1000
-    group_num = int(total_size/group_size) + 1
+    group_num = int(total_size / group_size) + 1
     thread_list = []
     for i in range(group_num):
-        t = threading.Thread(target=HelpGenUsers, args=(i*group_size, (i+1)*group_size))
+        t = threading.Thread(target=HelpGenUsers, args=(i * group_size, (i + 1) * group_size))
         thread_list.append(t)
         t.start()
 
@@ -25,6 +26,7 @@ def GenUsers():
 
     global_obj.GlobalUserList.sort(key=take_uid, reverse=False)
     # print('generate users done')
+
 
 @TimeTest.Krxk_Clock
 def HelpGenUsers(start_uid, end_uid):
